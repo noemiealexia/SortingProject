@@ -52,6 +52,9 @@ void ofApp::keyPressed(int key)
         break;
     case 'i': triInsertion();
         break;
+    case 'm': triFusionB();
+        break;
+
 
 
     }
@@ -151,4 +154,43 @@ void ofApp::triInsertion()
         }
         numbers[j + 1] = key;
     }
+}
+
+//--------------------------------------------------------------
+void fusion(vector<int>& arr, int gauche, int milieu, int droite) 
+{
+    vector<int> partieGauche(arr.begin() + gauche, arr.begin() + milieu + 1);
+    vector<int> partieDroite(arr.begin() + milieu + 1, arr.begin() + droite + 1);
+
+    int i = 0, j = 0, k = gauche;
+    while (i < partieGauche.size() && j < partieDroite.size()) 
+    {
+        if (partieGauche[i] <= partieDroite[j]) 
+        {
+            arr[k++] = partieGauche[i++];
+        }
+        else 
+        {
+            arr[k++] = partieDroite[j++];
+        }
+    }
+    while (i < partieGauche.size()) arr[k++] = partieGauche[i++];
+    while (j < partieDroite.size()) arr[k++] = partieDroite[j++];
+}
+//--------------------------------------------------------------
+void triFusionA(vector<int>& arr, int gauche, int droite)
+{
+    if (gauche < droite) 
+    {
+        int milieu = gauche + (droite - gauche) / 2;
+        triFusionA(arr, gauche, milieu);
+        triFusionA(arr, milieu + 1, droite);
+        fusion(arr, gauche, milieu, droite);
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::triFusionB() 
+{
+    triFusionA(numbers, 0, numbers.size() - 1);
 }

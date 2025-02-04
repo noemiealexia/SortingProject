@@ -23,5 +23,6 @@ class ofApp : public ofBaseApp{
 		void randomNumbers();
 		void triABulles();
 		void triInsertion();
+		void triFusionB();
 		
 };
