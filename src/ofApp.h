@@ -21,5 +21,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 		void randomNumbers();
+		void triABulles();
+		void triInsertion();
 		
 };

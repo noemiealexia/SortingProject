@@ -6,7 +6,6 @@ vector<int> numbers;
 void ofApp::setup()
 {
 
-
 	randomNumbers();
     ofBackground(255, 182, 193);
 
@@ -45,10 +44,18 @@ void ofApp::draw()
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key)
 {
-    if (key == 'r') 
+    switch (key)
     {
-        randomNumbers();
+    case 'r': randomNumbers();
+        break;
+    case 'b': triABulles();
+        break;
+    case 'i': triInsertion();
+        break;
+
+
     }
+
 
 }
 
@@ -110,4 +117,38 @@ void ofApp::randomNumbers()
 	{
 		numbers.push_back(ofRandom(10, 100));
 	}
+}
+
+//--------------------------------------------------------------
+void ofApp::triABulles()
+{
+    bool swapped;
+    do 
+    {
+        swapped = false;
+        for (size_t i = 0; i < numbers.size() - 1; i++) 
+        {
+            if (numbers[i] > numbers[i + 1]) 
+            {
+                swap(numbers[i], numbers[i + 1]);
+                swapped = true;
+            }
+        }
+    } while (swapped);
+}
+
+//--------------------------------------------------------------
+void ofApp::triInsertion() 
+{
+    for (size_t i = 1; i < numbers.size(); i++) 
+    {
+        int key = numbers[i];
+        int j = i - 1;
+        while (j >= 0 && numbers[j] > key) 
+        {
+            numbers[j + 1] = numbers[j];
+            j--;
+        }
+        numbers[j + 1] = key;
+    }
 }
