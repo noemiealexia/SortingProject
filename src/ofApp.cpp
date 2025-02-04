@@ -54,6 +54,9 @@ void ofApp::keyPressed(int key)
         break;
     case 'm': triFusionB();
         break;
+    case 'q': triRapideB();
+        break;
+    case 's': melanger();
 
 
 
@@ -193,4 +196,52 @@ void triFusionA(vector<int>& arr, int gauche, int droite)
 void ofApp::triFusionB() 
 {
     triFusionA(numbers, 0, numbers.size() - 1);
+}
+
+
+//--------------------------------------------------------------
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    int j = low;
+    
+    for (j ; j < high; j++) 
+    {
+        if (arr[j] < pivot) 
+        {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    
+    swap(arr[i + 1], arr[high]);
+    
+    return i + 1;
+}
+
+//--------------------------------------------------------------
+void triRapideA(vector<int>& arr, int low, int high) 
+{
+    if (low < high) 
+    {
+        int pivot = partition(arr, low, high);
+        triRapideA(arr, low, pivot - 1);
+        triRapideA(arr, pivot + 1, high);
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::triRapideB() 
+{
+    triRapideA(numbers, 0, numbers.size() - 1);
+}
+
+//--------------------------------------------------------------
+void ofApp::melanger() 
+{
+    for (int i = numbers.size() - 1; i > 0; i--) 
+    {
+        int j = ofRandom(0, i + 1);
+        swap(numbers[i], numbers[j]);
+    }
 }
